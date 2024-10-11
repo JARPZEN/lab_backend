@@ -1,7 +1,7 @@
 package backend.src.main.java.culturemedia.model.repository;
 
 public class RecordVideo {
-    private String code;
+    private static String code;
     private String title;
     private String description;
     private double duration;
@@ -15,7 +15,7 @@ public class RecordVideo {
     }
 
     // Getters y Setters (opcional para acceder a las variables)
-    public String getCode() {
+    public static String getCode() {
         return code;
     }
 
