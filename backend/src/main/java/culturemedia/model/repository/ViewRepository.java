@@ -5,7 +5,7 @@ import backend.src.main.java.culturemedia.View;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewRepository {
+public abstract class ViewRepository {
     private List<View> reproducciones;
 
     // Constructor que inicializa la lista de reproducciones
@@ -23,5 +23,9 @@ public class ViewRepository {
     public List<View> getReproducciones() {
         return reproducciones;
     }
+
+    public abstract View save(View view);
 }
+
+
 
