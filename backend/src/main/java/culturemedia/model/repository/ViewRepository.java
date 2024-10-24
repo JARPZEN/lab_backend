@@ -24,7 +24,9 @@ public abstract class ViewRepository {
         return reproducciones;
     }
 
-    public abstract View save(View view);
+    public static View save(View view) {
+        return null;
+    }
 }
 
 

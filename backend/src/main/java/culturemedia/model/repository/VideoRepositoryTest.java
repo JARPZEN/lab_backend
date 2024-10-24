@@ -1,13 +1,12 @@
 package backend.src.main.java.culturemedia.model.repository;
 
 import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import backend.src.main.java.culturemedia.model.repository.RecordVideo;
-import backend.src.main.java.culturemedia.model.repository.VideoRepositoryImpl;
+import backend.src.main.java.culturemedia.exception.VideoNotFoundException;
 
+import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 //volviiiiiii
 class VideoRepositoryTest {
@@ -19,23 +18,23 @@ class VideoRepositoryTest {
 
         videoRepository = new VideoRepositoryImpl();
 
-        List<RecordVideo> videos = List.of(new RecordVideo("01", "Título 1", "----", 4.5),
-                new RecordVideo("02", "Título 2", "----", 5.5),
-                new RecordVideo("03", "Título 3", "----", 4.4),
-                new RecordVideo("04", "Título 4", "----", 3.5),
-                new RecordVideo("05", "Clic 5", "----", 5.7),
-                new RecordVideo("06", "Clic 6", "----", 5.1));
+        List<RecordVideo> videos = List.of(new RecordVideo("01", "Título 1"),
+                new RecordVideo("02", "Título 2"),
+                new RecordVideo("03", "Título 3"),
+                new RecordVideo("04", "Título 4"),
+                new RecordVideo("05", "Clic 5"),
+                new RecordVideo("06", "Clic 6"));
 
 
         for ( RecordVideo video : videos ) {
-            videoRepository.save( video );
+            VideoRepository.save( video );
         }
 
     }
 
     @Test
     void when_FindAll_all_videos_should_be_returned_successfully() {
-        List<RecordVideo> videos = videoRepository.findAll( );
+        List<RecordVideo> videos = VideoRepository.findAll( );
         assertEquals(6, videos.size());
     }
 
@@ -61,4 +60,27 @@ class VideoRepositoryTest {
         assert(false);
     }
 
+    // Prueba 1: Cuando no hay videos, debería lanzar la excepción VideoNotFoundException
+    @Test
+    public void testFindAllThrowsVideoNotFoundExceptionWhenNoVideos() {
+        // El repositorio de prueba por defecto no tiene videos
+        assertThrows(VideoNotFoundException.class, () -> {
+            RecordVideo videoService = null;
+            videoService.findAll();
+        });
+    }
+
+    // Prueba 2: Cuando hay videos, deberían ser retornados correctamente
+    @Test
+    public void testFindAllReturnsAllVideos() throws VideoNotFoundException {
+        // Añadimos videos al repositorio de prueba
+        RecordVideo.addVideo(new RecordVideo("Video1", "URL1"));
+        RecordVideo.addVideo(new RecordVideo("Video2", "URL2"));
+
+        // Llamada al método y verificación de que retorna los videos correctamente
+        List<RecordVideo> result = RecordVideo.findAll();
+        assertEquals(2, result.size());
+        assertEquals("Video1", result.get(0).getCode());
+        assertEquals("Video2", result.get(1).getCode());
+    }
 }
