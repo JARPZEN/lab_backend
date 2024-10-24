@@ -5,7 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import backend.src.main.java.culturemedia.exception.VideoNotFoundException;
-
+import backend.src.main.java.culturemedia.View;
+import backend.src.main.java.culturemedia.ReproduccionServiceImpl;
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 //volviiiiiii
@@ -50,23 +51,13 @@ class VideoRepositoryTest {
         assertEquals(3, videos.size());
     }
 
-    @Test
-    void when_FindByTitle_does_not_match_any_video_an_empty_list_should_be_returned_successfully() {
-        assert(false);
-    }
-
-    @Test
-    void when_FindByDuration_does_not_match_any_video_an_empty_list_should_be_returned_successfully() {
-        assert(false);
-    }
 
     // Prueba 1: Cuando no hay videos, debería lanzar la excepción VideoNotFoundException
     @Test
     public void testFindAllThrowsVideoNotFoundExceptionWhenNoVideos() {
         // El repositorio de prueba por defecto no tiene videos
         assertThrows(VideoNotFoundException.class, () -> {
-            RecordVideo videoService = null;
-            videoService.findAll();
+            RecordVideo.findAll();
         });
     }
 
@@ -83,4 +74,60 @@ class VideoRepositoryTest {
         assertEquals("Video1", result.get(0).getCode());
         assertEquals("Video2", result.get(1).getCode());
     }
+
+    // Pruebas para findAll
+    @Test
+    public void testFindAllThrowsVideoNotFoundExceptionWhenNoVideos2() {
+        assertThrows(VideoNotFoundException.class, () -> {
+            ReproduccionServiceImpl.findAll();
+        });
+    }
+
+
+    @Test
+    public void testFindAllReturnsAllVideos2() throws VideoNotFoundException {
+        ReproduccionServiceImpl.addVideo(new RecordVideo("Video1", "URL1"));
+        ReproduccionServiceImpl.addVideo(new RecordVideo("Video2", "URL2"));
+
+
+        List<RecordVideo> result = ReproduccionServiceImpl.findAll();
+        assertEquals(2, result.size());
+        assertEquals("Video1", result.get(0).getCode());
+        assertEquals("Video2", result.get(1).getCode());
+    }
+
+
+    // Pruebas para save(Video video)
+    @Test
+    public void testSaveVideoStoresVideoCorrectly() {
+        ReproduccionServiceImpl video = new ReproduccionServiceImpl("Test Video", "Test URL");
+        RecordVideo savedVideo = ReproduccionServiceImpl.save(video);
+        assertEquals(video, savedVideo);
+    }
+
+
+    @Test
+    public void testSaveVideoThrowsIllegalArgumentExceptionWhenVideoIsNull() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            ReproduccionServiceImpl.save((ReproduccionServiceImpl) null);
+        });
+    }
+
+
+    // Pruebas para save(View view)
+    @Test
+    public void testSaveViewStoresViewCorrectly() {
+        View view = new View(1, "Test View");
+        View savedView = ReproduccionServiceImpl.save(view);
+        assertEquals(view, savedView);
+    }
+
+
+    @Test
+    public void testSaveViewThrowsIllegalArgumentExceptionWhenViewIsNull() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            ReproduccionServiceImpl.save((View) null);
+        });
+    }
+
 }

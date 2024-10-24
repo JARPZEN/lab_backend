@@ -2,16 +2,24 @@ package backend.src.main.java.culturemedia;
 
 import backend.src.main.java.culturemedia.model.repository.RecordVideo;
 import backend.src.main.java.culturemedia.model.repository.ViewRepository;
+import backend.src.main.java.culturemedia.model.repository.VideoRepository;
+import backend.src.main.java.culturemedia.exception.VideoNotFoundException;
 
 import java.util.List;
 
-public abstract class ReproduccionServiceImpl implements reproduccionService {
+public class ReproduccionServiceImpl implements reproduccionService {
     // Dependencia del repositorio
     private ViewRepository viewRepository;
 
     // Constructor donde inyectamos el repositorio
     public ReproduccionServiceImpl(ViewRepository viewsRepository) {
         this.viewRepository = viewsRepository;
+    }
+
+    public ReproduccionServiceImpl(String testVideo, String testUrl) {
+    }
+
+    public static void addVideo(RecordVideo video) {
     }
 
     @Override
@@ -41,4 +49,31 @@ public abstract class ReproduccionServiceImpl implements reproduccionService {
         }
         return null;  // Retorna null si no encuentra la reproducción
     }
+    // Método para obtener todos los videos
+    public static List<RecordVideo> findAll() throws VideoNotFoundException {
+        List<RecordVideo> videos = VideoRepository.findAll();
+        if (videos.isEmpty()) {
+            throw new VideoNotFoundException("No videos found");
+        }
+        return videos;
+    }
+
+
+    // Método para guardar un video
+    public static RecordVideo save(ReproduccionServiceImpl video) {
+        if (video == null) {
+            throw new IllegalArgumentException("Video cannot be null");
+        }
+        return VideoRepository.save(video);
+    }
+
+
+    // Método para guardar una view
+    public static View save(View view) {
+        if (view == null) {
+            throw new IllegalArgumentException("View cannot be null");
+        }
+        return ViewRepository.save(view);
+    }
+
 }
