@@ -46,5 +46,13 @@ public class RecordVideo {
     public void setDuration(double duration) {
         this.duration = duration;
     }
+
+    public String title() {
+        return "title";
+    }
+
+    public Double duration() {
+        return duration;
+    }
 }
 
