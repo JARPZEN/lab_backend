@@ -3,9 +3,6 @@ package backend.src.main.java.culturemedia.model.repository;
 import java.util.ArrayList;
 import java.util.List;
 
-import backend.src.main.java.culturemedia.model.repository.RecordVideo;
-import backend.src.main.java.culturemedia.model.repository.VideoRepository;
-
 public class VideoRepositoryImpl implements VideoRepository {
 
     private final List<RecordVideo> videos;
