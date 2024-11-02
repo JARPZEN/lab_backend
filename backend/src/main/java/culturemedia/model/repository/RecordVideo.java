@@ -18,6 +18,9 @@ public class RecordVideo {
         this.duration = duration;
     }
 
+    public RecordVideo(int i) {
+    }
+
     // Getters y Setters (opcional para acceder a las variables)
     public static String getCode() {
         return code;
