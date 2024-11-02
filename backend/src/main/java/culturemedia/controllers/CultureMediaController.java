@@ -23,4 +23,7 @@ public class CultureMediaController {
     }
 
 
+    public List<RecordVideo> findAllVideos() {
+        return null;
+    }
 }
