@@ -12,9 +12,8 @@ public class RecordVideo {
 
     // Constructor
     public RecordVideo(String code, String title) {
-        this.code = code;
+        RecordVideo.code = code;
         this.title = title;
-        this.description = description;
         this.duration = duration;
     }
 
@@ -75,12 +74,12 @@ public class RecordVideo {
     }
 
     // Método para guardar un video
-    public RecordVideo save(RecordVideo video) {
+    public static ViewsRepositoryImpl.ReproduccionServiceImpl save(RecordVideo video) {
         return VideoRepository.save(video);
     }
 
     // Método para guardar una view
-    public View save(View view) {
+    public static View save(View view) {
         return ViewRepository.save(view);
     }
 }

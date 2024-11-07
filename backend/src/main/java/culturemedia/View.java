@@ -1,14 +1,16 @@
 package backend.src.main.java.culturemedia;
 
-import backend.src.main.java.culturemedia.model.repository.RecordVideo;
-
 import java.time.LocalDateTime;
 
-public record View (String userFullName, LocalDateTime startPlayingtime, Integer age, RecordVideo video) {
-    public View(int i, String testView) {
+public record View() {
+
+    // Constructor adicional
+    public View(String userFullName, LocalDateTime startPlayingTime, Integer age) {
+        this();
     }
 
-    public String Video() {
+    // Método que devuelve el nombre del usuario completo
+    public String getUserFullName(String userFullName) {
         return userFullName;
     }
 }
