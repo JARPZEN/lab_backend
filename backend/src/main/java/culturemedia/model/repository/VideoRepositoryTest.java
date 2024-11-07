@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import backend.src.main.java.culturemedia.exception.VideoNotFoundException;
 import backend.src.main.java.culturemedia.View;
-import backend.src.main.java.culturemedia.ReproduccionServiceImpl;
+
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 //volviiiiiii
@@ -28,7 +28,7 @@ class VideoRepositoryTest {
 
 
         for ( RecordVideo video : videos ) {
-            VideoRepository.save( video );
+            RecordVideo.save( video );
         }
 
     }
@@ -79,18 +79,18 @@ class VideoRepositoryTest {
     @Test
     public void testFindAllThrowsVideoNotFoundExceptionWhenNoVideos2() {
         assertThrows(VideoNotFoundException.class, () -> {
-            ReproduccionServiceImpl.findAll();
+            ViewsRepositoryImpl.ReproduccionServiceImpl.findAll();
         });
     }
 
 
     @Test
     public void testFindAllReturnsAllVideos2() throws VideoNotFoundException {
-        ReproduccionServiceImpl.addVideo(new RecordVideo("Video1", "URL1"));
-        ReproduccionServiceImpl.addVideo(new RecordVideo("Video2", "URL2"));
+        ViewsRepositoryImpl.ReproduccionServiceImpl.addVideo(new RecordVideo("Video1", "URL1"));
+        ViewsRepositoryImpl.ReproduccionServiceImpl.addVideo(new RecordVideo("Video2", "URL2"));
 
 
-        List<RecordVideo> result = ReproduccionServiceImpl.findAll();
+        List<RecordVideo> result = ViewsRepositoryImpl.ReproduccionServiceImpl.findAll();
         assertEquals(2, result.size());
         assertEquals("Video1", result.get(0).getCode());
         assertEquals("Video2", result.get(1).getCode());
@@ -100,8 +100,8 @@ class VideoRepositoryTest {
     // Pruebas para save(Video video)
     @Test
     public void testSaveVideoStoresVideoCorrectly() {
-        ReproduccionServiceImpl video = new ReproduccionServiceImpl("Test Video", "Test URL");
-        RecordVideo savedVideo = ReproduccionServiceImpl.save(video);
+        ViewsRepositoryImpl.ReproduccionServiceImpl video = new ViewsRepositoryImpl.ReproduccionServiceImpl("Test Video", "Test URL");
+        RecordVideo savedVideo = ViewsRepositoryImpl.ReproduccionServiceImpl.save(video);
         assertEquals(video, savedVideo);
     }
 
@@ -109,7 +109,7 @@ class VideoRepositoryTest {
     @Test
     public void testSaveVideoThrowsIllegalArgumentExceptionWhenVideoIsNull() {
         assertThrows(IllegalArgumentException.class, () -> {
-            ReproduccionServiceImpl.save((ReproduccionServiceImpl) null);
+            ViewsRepositoryImpl.ReproduccionServiceImpl.save((ViewsRepositoryImpl.ReproduccionServiceImpl) null);
         });
     }
 
@@ -117,8 +117,8 @@ class VideoRepositoryTest {
     // Pruebas para save(View view)
     @Test
     public void testSaveViewStoresViewCorrectly() {
-        View view = new View(1, "Test View");
-        View savedView = ReproduccionServiceImpl.save(view);
+        View view = new View();
+        View savedView = ViewsRepositoryImpl.ReproduccionServiceImpl.save(view);
         assertEquals(view, savedView);
     }
 
@@ -126,7 +126,7 @@ class VideoRepositoryTest {
     @Test
     public void testSaveViewThrowsIllegalArgumentExceptionWhenViewIsNull() {
         assertThrows(IllegalArgumentException.class, () -> {
-            ReproduccionServiceImpl.save((View) null);
+            View save = ViewsRepositoryImpl.ReproduccionServiceImpl.save((View) null);
         });
     }
 
